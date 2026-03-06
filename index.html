@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ivana Pitek — Psychopraticienne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ivory: #FAFAF8;
+      --beige: #E8DDD0;
+      --sage: #8A9E8C;
+      --taupe: #5C4F42;
+      --shadow-soft: 0 12px 30px rgba(0,0,0,0.08);
+      --shadow-card: 0 10px 24px rgba(92,79,66,0.12);
+      --max-width: 1100px;
+      --transition: all 0.35s ease-in-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      color: var(--taupe);
+      background: var(--ivory);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Layout helpers */
+    .container {
+      width: 92%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 72px 0;
+      position: relative;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      font-weight: 600;
+      color: var(--taupe);
+      letter-spacing: 0.4px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw + 1rem, 3.6rem);
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 1.5vw + 1.2rem, 2.6rem);
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: var(--taupe);
+    }
+
+    .highlight {
+      background: linear-gradient(180deg, transparent 60%, rgba(138,158,140,0.22) 0);
+      color: var(--taupe);
+      padding: 0 2px;
+      border-radius: 2px;
+      font-weight: 700;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      min-height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--sage);
+      background: var(--sage);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Navbar */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 250, 248, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(92,79,66,0.06);
+      transition: var(--transition);
+    }
+
+    nav.scrolled {
+      background: rgba(250, 250, 248, 0.92);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+    }
+
+    .nav-links {
+      display: none;
+      gap: 20px;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 10px 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 6px;
+      width: 0;
+      height: 2px;
+      background: var(--sage);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a:focus-visible::after {
+      width: 100%;
+    }
+
+    .burger {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      border: 1px solid rgba(92,79,66,0.15);
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .burger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--taupe);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .burger.open span:nth-child(1) {
+      transform: translateY(4px) rotate(45deg);
+    }
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.open span:nth-child(3) {
+      transform: translateY(-4px) rotate(-45deg);
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      padding: 12px 0 20px;
+      border-bottom: 1px solid rgba(92,79,66,0.08);
+    }
+
+    .mobile-menu a {
+      padding: 12px 0;
+      min-height: 44px;
+      font-weight: 600;
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--beige);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(92,79,66,0.04) 1px, transparent 0);
+      background-size: 3px 3px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      padding-top: 12px;
+    }
+
+    .hero-text h1 {
+      margin-bottom: 18px;
+    }
+
+    .hero-text p {
+      margin-bottom: 26px;
+      max-width: 720px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .hero-image {
+      max-width: 420px;
+      justify-self: center;
+      position: relative;
+    }
+
+    .portrait {
+      border-radius: 22px;
+      box-shadow: var(--shadow-soft);
+      transform: translateZ(0);
+      transition: transform 0.6s ease;
+    }
+
+    /* Two-column sections */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .about-photo {
+      position: relative;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .portrait-main {
+      border-radius: 16px;
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: var(--transition);
+    }
+
+    .card:hover,
+    .card:focus-within {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: var(--shadow-card);
+    }
+
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(138,158,140,0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card h3 {
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+    }
+
+    .muted {
+      color: rgba(92,79,66,0.78);
+      font-size: 0.95rem;
+    }
+
+    /* Quote block */
+    .quote {
+      font-size: clamp(1.4rem, 1.2vw + 1rem, 2rem);
+      font-style: italic;
+      text-align: center;
+      margin: 12px auto 36px;
+      max-width: 820px;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    /* Infos pratiques grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .info-item {
+      background: #fff;
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .info-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .info-title {
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--sage);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    /* Contact */
+    form {
+      display: grid;
+      gap: 14px;
+      max-width: 520px;
+      margin-top: 10px;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid rgba(92,79,66,0.25);
+      border-radius: 10px;
+      background: #fff;
+      font-size: 1rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      min-height: 44px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--sage);
+      box-shadow: 0 0 0 3px rgba(138,158,140,0.2);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--taupe);
+      color: #f4f1ed;
+      padding: 28px 0 24px;
+      margin-top: 32px;
+    }
+
+    footer .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+
+    .footer-link {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 16px;
+      z-index: 100;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: #fff;
+      color: var(--taupe);
+      border-radius: 18px;
+      padding: 24px 22px;
+      width: min(520px, 100%);
+      box-shadow: var(--shadow-card);
+      transform: translateY(12px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .close-btn {
+      border: none;
+      background: rgba(138,158,140,0.2);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: var(--transition);
+    }
+
+    .close-btn:hover {
+      background: rgba(138,158,140,0.35);
+      transform: rotate(6deg);
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+      .burger, .mobile-menu {
+        display: none;
+      }
+      .hero-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+      .split {
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 36px;
+      }
+      .about-photo {
+        grid-template-columns: 1fr 1fr;
+      }
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .pillars {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .hero-grid {
+        grid-template-columns: 1fr 0.9fr;
+      }
+      .info-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .split {
+        grid-template-columns: 0.9fr 1.1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav aria-label="Navigation principale">
+    <div class="container nav-wrapper">
+      <div class="logo">Ivana Pitek</div>
+      <div class="nav-links" role="menubar">
+        <a href="#accueil" role="menuitem">Accueil</a>
+        <a href="#about" role="menuitem">Qui suis-je</a>
+        <a href="#accompagnement" role="menuitem">Mon accompagnement</a>
+        <a href="#ethique" role="menuitem">Cadre & éthique</a>
+        <a href="#infos" role="menuitem">Infos pratiques</a>
+        <a href="#contact" role="menuitem">Contact</a>
+      </div>
+      <button class="burger" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="container mobile-menu" aria-label="Menu mobile">
+      <a href="#accueil">Accueil</a>
+      <a href="#about">Qui suis-je</a>
+      <a href="#accompagnement">Mon accompagnement</a>
+      <a href="#ethique">Cadre & éthique</a>
+      <a href="#infos">Infos pratiques</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- SECTION 1 : HERO -->
+    <section id="accueil" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text reveal" data-delay="0">
+          <h1>Un accompagnement psychologique engagé, pour <span class="highlight">comprendre</span>, <span class="highlight">évoluer</span>, <span class="highlight">se développer</span> et <span class="highlight">se sentir mieux</span>.</h1>
+          <p>
+            Je propose un accompagnement psychologique verbal, destiné aux personnes qui rencontrent des difficultés émotionnelles, relationnelles ou existentielles, et qui souhaitent s'engager activement dans un travail de compréhension et de transformation de ce qu'elles traversent.
+          </p>
+          <p>
+            Les séances se déroulent dans un espace d'écoute active, sain et sécurisant, où la parole peut se déployer librement. Mon approche ne se limite pas à l'accueil de la souffrance : elle vise également à mettre en lumière des pistes de réflexion, des points d'appui et des mouvements possibles pour sortir de certaines impasses, débloquer des situations répétitives et favoriser un mieux-être durable.
+          </p>
+          <p>
+            L'accompagnement s'appuie sur l'échange, l'élaboration psychique et une implication conjointe dans le travail mené en séance. Il s'agit d'un espace vivant, où la parole devient un outil pour mieux se comprendre, prendre du recul, et progressivement se repositionner face à ses difficultés.
+          </p>
+          <p>
+            Chaque personne est accueillie dans sa singularité, à son rythme, avec sérieux et engagement. Cet accompagnement s'adresse à toute personne adulte ou enfant souhaitant ou nécessitant un soutien psychologique et un espace de travail pour avancer.
+          </p>
+        <div class="hero-cta">
+          <a class="btn" href="#contact">Prendre contact</a>
+        </div>
+      </div>
+      <div class="hero-image reveal" data-delay="120">
+        <img class="portrait parallax" src="Portrait.png" alt="Ivana Pitek, psychopraticienne" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+    <!-- SECTION 2 : QUI SUIS-JE -->
+    <section id="about">
+      <div class="container split">
+        <div class="about-photo reveal" data-delay="0">
+          <img class="portrait-main" src="Portrait.png" alt="Portrait d'Ivana Pitek" loading="lazy">
+        </div>
+        <div class="reveal" data-delay="120">
+          <h2>Qui suis-je ?</h2>
+          <p style="margin-bottom: 14px;">Je m'appelle <strong style="color: var(--sage); font-weight: 700;">Ivana</strong> PITEK.<br>Je suis psychopraticienne, formée à l'accompagnement psychologique verbal.</p>
+          <p style="margin-bottom: 12px;">Titulaire d'une licence de psychologie, avec une orientation en psychologie clinique et psychanalyse, et ayant suivi une formation de deux ans en psychopathologie et métapsychologie.</p>
+          <p style="margin-bottom: 12px;">Mon approche s'inscrit dans une démarche d'écoute clinique, attentive à la parole, au vécu subjectif et aux dynamiques relationnelles propres à chaque personne. Je m'attache à proposer un espace de travail respectueux, sans jugement, dans lequel chacun·e peut se sentir libre d'exprimer ce qu'il ou elle traverse.</p>
+          <p style="margin-bottom: 12px;">Je considère l'accompagnement comme un cheminement singulier, qui se construit dans la rencontre et dans le temps, au plus près de la réalité psychique de la personne.</p>
+          <p>Mon parcours me permet aujourd'hui de proposer un accompagnement vivant et ajusté, qui ne se limite pas à une méthode unique ou à un cadre figé. Chaque personne arrive avec son histoire, ses blocages, sa manière singulière de penser et de ressentir. C'est à partir de cela que le travail se construit. Mon approche me permet d'adapter les séances, d'affiner l'écoute et de proposer des pistes de réflexion et de travail pertinentes, afin de favoriser des prises de conscience, et de se diriger progressivement vers un bien-être mental, dans le respect du rythme et de la singularité de chacun·e.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 : MON ACCOMPAGNEMENT -->
+    <section id="accompagnement" style="background: #f4eee5;">
+      <div class="container">
+        <div class="reveal" data-delay="0" style="text-align:center; max-width: 780px; margin: 0 auto 10px;">
+          <h2>Mon accompagnement</h2>
+          <p>L'accompagnement que je propose repose sur un travail verbal, centré sur la parole, l'écoute et l'échange.</p>
+          <p style="margin-top: 6px; font-weight: 700;">Les séances offrent un espace pour :</p>
+        </div>
+        <div class="cards">
+          <article class="card reveal" data-delay="0">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12h4l3 7 3-14 2 7h3" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>Mettre des mots</h3>
+              <p class="muted">Mettre des mots sur ce qui fait difficulté, avec aide si besoin.</p>
+            </div>
+          </article>
+          <article class="card reveal" data-delay="80">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M4 9h16M6 15h12" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h3>Explorer</h3>
+              <p class="muted">Explorer des questionnements personnels, émotionnels ou relationnels.</p>
+            </div>
+          </article>
+          <article class="card reveal" data-delay="160">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5c-3.866 0-7 2.462-7 5.5S8.134 16 12 16s7-2.462 7-5.5S15.866 5 12 5Zm0 0V3m0 13v3m5.657-11.657L19.071 3m-10.728 0L6.343 6.343" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h3>Comprendre</h3>
+              <p class="muted">Mieux comprendre certains fonctionnements, ressentis ou répétitions.</p>
+            </div>
+          </article>
+          <article class="card reveal" data-delay="240">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12c2.5 0 4-2 4-4s-1.5-4-4-4m16 16c-2.5 0-4-2-4-4s1.5-4 4-4M7 12h10" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>Élaborer</h3>
+              <p class="muted">Soutenir un processus de réflexion et d'élaboration psychique.</p>
+            </div>
+          </article>
+          <article class="card reveal" data-delay="320">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5a7 7 0 0 0 0 14 7 7 0 1 0 0-14Zm0 4v6m0-3 2 2m-2-2-2 2" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>Transformer</h3>
+              <p class="muted">Travailler sur des souvenirs douloureux, traumatismes, conditionnements.</p>
+            </div>
+          </article>
+          <article class="card reveal" data-delay="400">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 7h14v10H5z M9 12h6M12 9v6" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>En ligne</h3>
+              <p class="muted">Des sessions de thérapie en ligne accessibles depuis votre domicile pour un suivi régulier et adapté à vos besoins.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4 : CADRE & ÉTHIQUE -->
+    <section id="ethique">
+      <div class="container">
+        <div class="quote reveal" data-delay="0">"L'accompagnement se déroule dans un cadre clair et sécurisant."</div>
+        <div class="reveal" data-delay="120">
+          <h2 style="text-align:center; margin-bottom: 14px;">Cadre de travail & éthique</h2>
+        </div>
+        <div class="pillars">
+          <div class="card reveal" data-delay="0">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 8v12h14V8L12 4 5 8Z" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>Confidentialité</h3>
+              <p class="muted">La confidentialité des échanges.</p>
+            </div>
+          </div>
+          <div class="card reveal" data-delay="100">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4a4 4 0 0 0-4 4v3H6v7h12v-7h-2V8a4 4 0 0 0-4-4Z" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>Respect</h3>
+              <p class="muted">Le respect de la parole et du rythme de la personne.</p>
+            </div>
+          </div>
+          <div class="card reveal" data-delay="200">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 17 5 7h14l-2 10H7Zm0 0-1 4h12l-1-4" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>Posture professionnelle</h3>
+              <p class="muted">Une posture professionnelle et éthique.</p>
+            </div>
+          </div>
+        </div>
+        <p class="muted" style="margin-top: 16px; font-size: 0.9rem;">L'accompagnement proposé ne se substitue pas à un suivi médical ou psychiatrique. En cas de besoin, une orientation vers un professionnel de santé peut être envisagée.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5 : INFOS PRATIQUES -->
+    <section id="infos" style="background: var(--beige);">
+      <div class="container">
+        <div class="reveal" data-delay="0" style="text-align:center;">
+          <h2>Informations pratiques</h2>
+        </div>
+        <div class="info-grid">
+          <div class="info-item reveal" data-delay="0">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 6v6l4 2" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#5C4F42" stroke-width="1.6"/></svg>
+            </div>
+            <div>
+              <div class="info-title">Durée</div>
+              <div class="muted">45 minutes par séance</div>
+            </div>
+          </div>
+          <div class="info-item reveal" data-delay="80">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 20v-6a6 6 0 1 1 12 0v6" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="9" r="3" stroke="#5C4F42" stroke-width="1.6"/></svg>
+            </div>
+            <div>
+              <div class="info-title">Public</div>
+              <div class="muted">Enfants, adultes, seniors</div>
+            </div>
+          </div>
+          <div class="info-item reveal" data-delay="160">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16v10H4zM9 7V4m6 3V4m-8 6h10" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="info-title">Modalités</div>
+              <div class="muted">Présentiel (à domicile) et visioconférence</div>
+            </div>
+          </div>
+          <div class="info-item reveal" data-delay="240">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M8 8.5h8M8 15.5h5" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round"/><rect x="3" y="5" width="18" height="14" rx="3" stroke="#5C4F42" stroke-width="1.6"/></svg>
+            </div>
+            <div>
+              <div class="info-title">Tarif</div>
+              <div class="muted">60 € / séance — Tarif réduit -25 ans : 50 € / séance</div>
+            </div>
+          </div>
+          <div class="info-item reveal" data-delay="320">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3 4 7v10l8 4 8-4V7l-8-4Z" stroke="#5C4F42" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 7v10m-3-3.5 6-3" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="info-title">Paiement</div>
+              <div class="muted">Chèques ou espèces</div>
+            </div>
+          </div>
+          <div class="info-item reveal" data-delay="400">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 5h12M6 19h12M12 5v14" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round"/><path d="M9 9h6M9 15h6" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="info-title">Annulation</div>
+              <div class="muted">Toute séance annulée moins de 48h à l'avance peut être due</div>
+            </div>
+          </div>
+        </div>
+        <p class="muted" style="margin-top: 12px; font-size: 0.9rem;">Non remboursé par la Sécurité sociale.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 6 : CONTACT -->
+    <section id="contact" style="background: #f4eee5;">
+      <div class="container split">
+        <div class="reveal" data-delay="0">
+          <h2>Prendre contact</h2>
+          <p style="margin-bottom: 14px;">Vous souhaitez en savoir plus ou prendre rendez-vous ?<br>N'hésitez pas à me contacter. Je vous répondrai dans les meilleurs délais.</p>
+        </div>
+        <div class="reveal" data-delay="120">
+          <form action="mailto:contact@ivanaPITEK.fr" method="post" enctype="text/plain">
+            <div>
+              <label for="prenom">Prénom *</label>
+              <input id="prenom" name="prenom" type="text" required aria-required="true" placeholder="Votre prénom">
+            </div>
+            <div>
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" required aria-required="true" placeholder="vous@example.com">
+            </div>
+            <div>
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" required aria-required="true" placeholder="Votre message..."></textarea>
+            </div>
+            <button type="submit" class="btn">Envoyer</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div id="copyright">© <span id="year"></span> Ivana Pitek — Psychopraticienne</div>
+      <a href="#mentions" class="footer-link" id="mentions-link">Mentions légales</a>
+    </div>
+  </footer>
+
+  <!-- MODALE MENTIONS LÉGALES -->
+  <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Mentions légales</h3>
+        <button class="close-btn" aria-label="Fermer la modale">✕</button>
+      </div>
+      <div class="muted" style="display: grid; gap: 6px; font-size: 0.98rem;">
+        <div><strong>Nom :</strong> Ivana PITEK</div>
+        <div><strong>Statut :</strong> Micro-entrepreneure</div>
+        <div><strong>Activité :</strong> Psychopraticienne — activité libérale non réglementée</div>
+        <div><strong>SIRET :</strong> 101059681</div>
+        <div><strong>Lieu d'exercice :</strong> 1517 Chemin de Naron, 83150 Bandol, France</div>
+        <div style="margin-top: 10px;">L'accompagnement proposé ne constitue pas un acte médical et ne se substitue pas à un suivi médical ou psychiatrique.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Navbar scroll effect
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 12);
+    });
+
+    // Mobile menu
+    const burger = document.querySelector('.burger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      const isOpen = burger.classList.contains('open');
+      mobileMenu.style.display = isOpen ? 'flex' : 'none';
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        burger.classList.remove('open');
+        mobileMenu.style.display = 'none';
+      });
+    });
+
+    // Intersection Observer animations
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const delay = entry.target.dataset.delay || 0;
+          entry.target.style.transitionDelay = delay + 'ms';
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    reveals.forEach(el => io.observe(el));
+
+    // Parallax on portrait
+    const parallaxImg = document.querySelector('.parallax');
+    window.addEventListener('scroll', () => {
+      if (!parallaxImg) return;
+      const rect = parallaxImg.getBoundingClientRect();
+      const offset = rect.top / window.innerHeight;
+      parallaxImg.style.transform = `translateY(${offset * -12}px)`;
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Modal
+    const overlay = document.querySelector('.modal-overlay');
+    const closeBtn = document.querySelector('.close-btn');
+    const mentionsLink = document.getElementById('mentions-link');
+
+    function closeModal() {
+      overlay.classList.remove('active');
+    }
+    mentionsLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      overlay.classList.add('active');
+    });
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>
