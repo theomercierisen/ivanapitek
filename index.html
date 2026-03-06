@@ -286,13 +286,38 @@
 
     .about-photo {
       position: relative;
-      max-width: 520px;
-      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
     }
 
-    .portrait-main {
-      border-radius: 16px;
-      box-shadow: var(--shadow-card);
+    .avatar-wrap {
+      position: relative;
+      width: 240px;
+      max-width: 70vw;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+    }
+
+    .avatar-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(138,158,140,0.25), transparent 55%), radial-gradient(circle at 70% 70%, rgba(92,79,66,0.16), transparent 55%);
+      filter: blur(10px);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 14px 35px rgba(92,79,66,0.25);
+      border: 6px solid #fff;
+      position: relative;
+      z-index: 1;
     }
 
     /* Cards */
@@ -544,9 +569,6 @@
         grid-template-columns: 0.95fr 1.05fr;
         gap: 36px;
       }
-      .about-photo {
-        grid-template-columns: 1fr 1fr;
-      }
       .cards {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -633,7 +655,10 @@
     <section id="about">
       <div class="container split">
         <div class="about-photo reveal" data-delay="0">
-          <img class="portrait-main" src="Portrait.png" alt="Portrait d'Ivana Pitek" loading="lazy">
+          <div class="avatar-wrap">
+            <div class="avatar-glow"></div>
+            <img class="avatar-img" src="Portrait.png" alt="Portrait d'Ivana Pitek" loading="lazy">
+          </div>
         </div>
         <div class="reveal" data-delay="120">
           <h2>Qui suis-je ?</h2>
