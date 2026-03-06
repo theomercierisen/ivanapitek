@@ -226,6 +226,7 @@
       background: var(--beige);
       position: relative;
       overflow: hidden;
+      padding: 72px 0 56px;
     }
 
     .hero::before {
@@ -280,15 +281,16 @@
     .split {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 28px;
-      align-items: start;
+      gap: 24px;
+      align-items: center;
+      justify-items: center;
     }
 
     .about-photo {
       position: relative;
       display: flex;
       justify-content: center;
-      padding: 10px 0;
+      padding: 2px 0 0;
     }
 
     .avatar-wrap {
@@ -318,6 +320,10 @@
       border: 6px solid #fff;
       position: relative;
       z-index: 1;
+    }
+
+    .about-text {
+      max-width: 780px;
     }
 
     /* Cards */
@@ -555,6 +561,25 @@
     }
 
     /* Responsive */
+    @media (max-width: 767px) {
+      section {
+        padding: 56px 0;
+      }
+      .hero {
+        padding: 56px 0 44px;
+      }
+      #about {
+        padding-top: 28px !important;
+        padding-bottom: 56px !important;
+      }
+      .split {
+        gap: 14px;
+      }
+      .avatar-wrap {
+        width: 200px;
+      }
+    }
+
     @media (min-width: 768px) {
       .nav-links {
         display: flex;
@@ -567,7 +592,7 @@
       }
       .split {
         grid-template-columns: 0.95fr 1.05fr;
-        gap: 36px;
+        gap: 32px;
       }
       .cards {
         grid-template-columns: repeat(2, 1fr);
@@ -652,7 +677,7 @@
   </section>
 
     <!-- SECTION 2 : QUI SUIS-JE -->
-    <section id="about">
+    <section id="about" style="padding-top:40px; padding-bottom:64px;">
       <div class="container split">
         <div class="about-photo reveal" data-delay="0">
           <div class="avatar-wrap">
@@ -660,8 +685,8 @@
             <img class="avatar-img" src="Portrait.png" alt="Portrait d'Ivana Pitek" loading="lazy">
           </div>
         </div>
-        <div class="reveal" data-delay="120">
-          <h2>Qui suis-je ?</h2>
+        <div class="about-text reveal" data-delay="120">
+          <h2 style="text-align:center; margin-bottom:18px;">Qui suis-je ?</h2>
           <p style="margin-bottom: 14px;">Je m'appelle <strong style="color: var(--sage); font-weight: 700;">Ivana</strong> PITEK.<br>Je suis psychopraticienne, formée à l'accompagnement psychologique verbal.</p>
           <p style="margin-bottom: 12px;">Titulaire d'une licence de psychologie, avec une orientation en psychologie clinique et psychanalyse, et ayant suivi une formation de deux ans en psychopathologie et métapsychologie.</p>
           <p style="margin-bottom: 12px;">Mon approche s'inscrit dans une démarche d'écoute clinique, attentive à la parole, au vécu subjectif et aux dynamiques relationnelles propres à chaque personne. Je m'attache à proposer un espace de travail respectueux, sans jugement, dans lequel chacun·e peut se sentir libre d'exprimer ce qu'il ou elle traverse.</p>
