@@ -90,6 +90,23 @@
       font-weight: 700;
     }
 
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pill-text {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(138,158,140,0.15);
+      color: var(--taupe);
+      font-weight: 600;
+      margin: 6px 8px;
+      box-shadow: 0 12px 30px rgba(92,79,66,0.12);
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -106,9 +123,15 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     }
 
+    .btn-outline {
+      background: transparent;
+      color: var(--sage);
+      border: 2px solid var(--sage);
+    }
+
     .btn:hover,
     .btn:focus-visible {
-      transform: translateY(-2px) scale(1.01);
+      transform: translateY(-1px) scale(1.03);
       box-shadow: var(--shadow-card);
     }
 
@@ -144,14 +167,17 @@
 
     .nav-links {
       display: none;
-      gap: 20px;
+      gap: 18px;
       align-items: center;
       font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      flex-wrap: nowrap;
     }
 
     .nav-links a {
       position: relative;
-      padding: 10px 0;
+      padding: 8px 0;
       min-height: 44px;
       display: inline-flex;
       align-items: center;
@@ -259,9 +285,10 @@
     }
 
     .hero-cta {
-      display: inline-flex;
+      display: flex;
       gap: 12px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .hero-image {
@@ -326,12 +353,112 @@
       max-width: 780px;
     }
 
+    .cards-lieu {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 18px;
+      justify-items: stretch;
+      align-items: stretch;
+      margin-top: 22px;
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+      grid-auto-rows: 1fr;
+    }
+
+    .cards-lieu .card {
+      width: 100%;
+      height: 100%;
+      min-height: 230px;
+    }
+
+    /* Thematic backgrounds */
+    .bg-echange {
+      position: relative;
+      background-image: linear-gradient(135deg, rgba(250,250,248,0.85), rgba(232,221,208,0.7)), url(Echange.png);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--taupe);
+      overflow: hidden;
+    }
+
+    .bg-rdv {
+      position: relative;
+      background-image: url(RdvChaleureuxPaysage.png);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--taupe);
+      overflow: hidden;
+    }
+
+    .overlay-soft {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .overlay-echange {
+      background: radial-gradient(circle at 20% 20%, rgba(250,250,248,0.82), rgba(232,221,208,0.72) 45%, rgba(250,250,248,0.78));
+    }
+
+    .overlay-rdv {
+      background: rgba(232,221,208,0.85);
+    }
+
+    .overlay-soft + .container,
+    .overlay-soft + div > .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Lists */
+    .bullet-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 18px 0;
+      padding: 0;
+    }
+    .bullet-list li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 1.05rem;
+      color: var(--taupe);
+    }
+    .bullet-list li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--sage);
+      position: absolute;
+      left: 0;
+      top: 8px;
+      box-shadow: 0 6px 12px rgba(138,158,140,0.35);
+    }
+
     /* Cards */
     .cards {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 16px;
       margin-top: 22px;
+      justify-items: stretch;
+      align-items: stretch;
+    }
+
+    .cards-duo {
+      max-width: 820px;
+      margin: 14px auto 0;
+      justify-items: center;
+    }
+
+    .cards-duo {
+      max-width: 900px;
+      margin: 16px auto 0;
+      justify-items: center;
     }
 
     .card {
@@ -578,6 +705,10 @@
       .avatar-wrap {
         width: 200px;
       }
+      .bg-echange,
+      .bg-rdv {
+        background-attachment: scroll;
+      }
     }
 
     @media (min-width: 768px) {
@@ -596,6 +727,11 @@
       }
       .cards {
         grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+      }
+      .cards-lieu {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: 1fr;
       }
       .pillars {
         grid-template-columns: repeat(3, 1fr);
@@ -614,9 +750,14 @@
       }
       .cards {
         grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
       }
       .split {
         grid-template-columns: 0.9fr 1.1fr;
+      }
+      .cards-lieu {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-rows: 1fr;
       }
     }
   </style>
@@ -628,8 +769,10 @@
       <div class="logo">Ivana Pitek</div>
       <div class="nav-links" role="menubar">
         <a href="#accueil" role="menuitem">Accueil</a>
+        <a href="#pourquoi" role="menuitem">Pourquoi consulter ?</a>
         <a href="#about" role="menuitem">Qui suis-je</a>
         <a href="#accompagnement" role="menuitem">Mon accompagnement</a>
+        <a href="#deroulement" role="menuitem">Déroulement</a>
         <a href="#ethique" role="menuitem">Cadre & éthique</a>
         <a href="#infos" role="menuitem">Infos pratiques</a>
         <a href="#contact" role="menuitem">Contact</a>
@@ -640,8 +783,10 @@
     </div>
     <div class="container mobile-menu" aria-label="Menu mobile">
       <a href="#accueil">Accueil</a>
+      <a href="#pourquoi">Pourquoi consulter ?</a>
       <a href="#about">Qui suis-je</a>
       <a href="#accompagnement">Mon accompagnement</a>
+      <a href="#deroulement">Déroulement</a>
       <a href="#ethique">Cadre & éthique</a>
       <a href="#infos">Infos pratiques</a>
       <a href="#contact">Contact</a>
@@ -655,34 +800,54 @@
         <div class="hero-text reveal" data-delay="0">
           <h1>Un accompagnement psychologique engagé, pour <span class="highlight">comprendre</span>, <span class="highlight">évoluer</span>, <span class="highlight">se développer</span> et <span class="highlight">se sentir mieux</span>.</h1>
           <p>
-            Je propose un accompagnement psychologique verbal, destiné aux personnes qui rencontrent des difficultés émotionnelles, relationnelles ou existentielles, et qui souhaitent s'engager activement dans un travail de compréhension et de transformation de ce qu'elles traversent.
-          </p>
-          <p>
-            Les séances se déroulent dans un espace d'écoute active, sain et sécurisant, où la parole peut se déployer librement. Mon approche ne se limite pas à l'accueil de la souffrance : elle vise également à mettre en lumière des pistes de réflexion, des points d'appui et des mouvements possibles pour sortir de certaines impasses, débloquer des situations répétitives et favoriser un mieux-être durable.
-          </p>
-          <p>
-            L'accompagnement s'appuie sur l'échange, l'élaboration psychique et une implication conjointe dans le travail mené en séance. Il s'agit d'un espace vivant, où la parole devient un outil pour mieux se comprendre, prendre du recul, et progressivement se repositionner face à ses difficultés.
-          </p>
-          <p>
-            Chaque personne est accueillie dans sa singularité, à son rythme, avec sérieux et engagement. Cet accompagnement s'adresse à toute personne adulte ou enfant souhaitant ou nécessitant un soutien psychologique et un espace de travail pour avancer.
+            Je propose un accompagnement fondé sur la parole et la réflexion autour de ce qui fait difficulté dans votre vie.
+            Chaque parcours est singulier. L'objectif de cet espace est de permettre d'explorer ce qui se répète, ce qui se bloque ou ce qui fait question dans votre expérience.
           </p>
         <div class="hero-cta">
-          <a class="btn" href="#contact">Prendre contact</a>
+          <div class="cta-row">
+            <a class="btn" href="#contact">Prendre rendez-vous</a>
+          </div>
         </div>
       </div>
       <div class="hero-image reveal" data-delay="120">
-        <img class="portrait parallax" src="Portrait.png" alt="Ivana Pitek, psychopraticienne" loading="lazy">
+        <img class="portrait parallax" src="PortraitOK.png" alt="Ivana Pitek, psychopraticienne" loading="lazy">
       </div>
     </div>
   </section>
 
-    <!-- SECTION 2 : QUI SUIS-JE -->
+    <!-- SECTION 2 : POURQUOI CONSULTER -->
+    <section id="pourquoi" class="bg-echange">
+      <div class="overlay-soft overlay-echange"></div>
+      <div class="container reveal" data-delay="0" style="padding: 90px 0 94px;">
+        <div style="max-width: 880px; margin: 0 auto; text-align: center; backdrop-filter: blur(2px); padding: 6px 10px;">
+          <h2 style="margin-bottom:16px;">Pourquoi consulter ?</h2>
+          <p style="margin-bottom:16px; font-size:1.04rem; line-height:1.6;">
+            Il arrive que certaines situations deviennent difficiles à traverser seul.<br>
+            Vous pouvez ressentir le besoin de consulter si vous traversez par exemple une période d'angoisse, des difficultés relationnelles, un deuil ou un événement marquant, un sentiment de blocage ou de répétition, ou encore un mal-être difficile à comprendre.
+          </p>
+          <div style="margin-top:18px;">
+            <span class="pill-text">Angoisse / anxiété</span>
+            <span class="pill-text">Difficultés relationnelles</span>
+            <span class="pill-text">Transitions & questionnements</span>
+            <span class="pill-text">Rupture ou deuil</span>
+            <span class="pill-text">Blocages / répétitions</span>
+            <span class="pill-text">Mal-être diffus</span>
+          </div>
+          <div class="quote" style="max-width: 820px; margin-top: 28px; margin-bottom: 0; line-height: 1.55; font-size: clamp(1.15rem, 2vw + 0.55rem, 1.65rem);">
+            "La parole permet parfois de mettre en lumière ce qui agit en nous sans que nous en ayons pleinement conscience.
+            L'accompagnement vise à offrir un espace pour élaborer ces questions et en explorer les enjeux."
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 : QUI SUIS-JE -->
     <section id="about" style="padding-top:40px; padding-bottom:64px;">
       <div class="container split">
         <div class="about-photo reveal" data-delay="0">
           <div class="avatar-wrap">
             <div class="avatar-glow"></div>
-            <img class="avatar-img" src="Portrait.png" alt="Portrait d'Ivana Pitek" loading="lazy">
+            <img class="avatar-img" src="PortraitOK.png" alt="Portrait d'Ivana Pitek" loading="lazy">
           </div>
         </div>
         <div class="about-text reveal" data-delay="120">
@@ -702,9 +867,10 @@
         <div class="reveal" data-delay="0" style="text-align:center; max-width: 780px; margin: 0 auto 10px;">
           <h2>Mon accompagnement</h2>
           <p>L'accompagnement que je propose repose sur un travail verbal, centré sur la parole, l'écoute et l'échange.</p>
+          <p style="margin-top:6px;">Il s'agit d'un espace vivant, où la parole devient un outil pour mieux se comprendre, prendre du recul, et progressivement se repositionner face à ses difficultés.</p>
           <p style="margin-top: 6px; font-weight: 700;">Les séances offrent un espace pour :</p>
         </div>
-        <div class="cards">
+        <div class="cards cards-duo">
           <article class="card reveal" data-delay="0">
             <div class="card-icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12h4l3 7 3-14 2 7h3" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -732,6 +898,8 @@
               <p class="muted">Mieux comprendre certains fonctionnements, ressentis ou répétitions.</p>
             </div>
           </article>
+        </div>
+        <div class="cards cards-duo">
           <article class="card reveal" data-delay="240">
             <div class="card-icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12c2.5 0 4-2 4-4s-1.5-4-4-4m16 16c-2.5 0-4-2-4-4s1.5-4 4-4M7 12h10" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -750,6 +918,9 @@
               <p class="muted">Travailler sur des souvenirs douloureux, traumatismes, conditionnements.</p>
             </div>
           </article>
+        </div>
+        <div class="reveal" data-delay="0" style="text-align:center; margin: 30px auto 8px; font-weight:700;">Le lieu de rendez-vous qui vous convient :</div>
+        <div class="cards cards-lieu">
           <article class="card reveal" data-delay="400">
             <div class="card-icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 7h14v10H5z M9 12h6M12 9v6" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -759,11 +930,46 @@
               <p class="muted">Des sessions de thérapie en ligne accessibles depuis votre domicile pour un suivi régulier et adapté à vos besoins.</p>
             </div>
           </article>
+          <article class="card reveal" data-delay="480">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 10.5 12 4l8 6.5V20H4v-9.5Z" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>À domicile</h3>
+              <p class="muted">À domicile entre Martigues et Toulon (13/83).</p>
+            </div>
+          </article>
+          <article class="card reveal" data-delay="560">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 21h14V8H5v13Zm0-13 7-4 7 4M9 12h6m-6 4h6" stroke="#5C4F42" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>En cabinet</h3>
+              <p class="muted">En cabinet à Martigues (13).</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 4 : CADRE & ÉTHIQUE -->
+    <!-- SECTION 4 : DÉROULEMENT -->
+    <section id="deroulement" class="bg-rdv">
+      <div class="overlay-soft overlay-rdv"></div>
+      <div class="container reveal" data-delay="0" style="padding: 64px 0;">
+        <h2>Déroulement d'une séance</h2>
+        <p style="margin-bottom:10px;">Les séances constituent un espace de parole libre et confidentiel. Chaque séance dure environ 45 minutes.</p>
+        <p style="font-weight:700; margin-bottom:10px;">Lors de la première rencontre :</p>
+        <ul class="bullet-list">
+          <li>Nous prenons le temps d'échanger autour de ce qui vous amène</li>
+          <li>Vous pouvez évoquer librement votre situation</li>
+          <li>Nous réfléchissons ensemble à la possibilité d'un accompagnement</li>
+        </ul>
+        <p style="margin:12px 0;">Les séances suivantes permettent d'explorer progressivement les questions qui émergent dans votre vécu. Chaque suivi est personnalisé sur vos besoins, vos personnalités et vos attentes.</p>
+        <p style="margin:0;">Elles se déroulent dans un espace d'écoute active, sain et sécurisant, où la parole peut se déployer librement. Mon approche ne se limite pas à l'accueil de la souffrance : elle vise également à mettre en lumière des pistes de réflexion, des points d'appui et des mouvements possibles pour sortir de certaines impasses, débloquer des situations répétitives et favoriser un mieux-être durable.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5 : CADRE & ÉTHIQUE -->
     <section id="ethique">
       <div class="container">
         <div class="quote reveal" data-delay="0">"L'accompagnement se déroule dans un cadre clair et sécurisant."</div>
@@ -803,7 +1009,7 @@
       </div>
     </section>
 
-    <!-- SECTION 5 : INFOS PRATIQUES -->
+    <!-- SECTION 6 : INFOS PRATIQUES -->
     <section id="infos" style="background: var(--beige);">
       <div class="container">
         <div class="reveal" data-delay="0" style="text-align:center;">
@@ -852,7 +1058,7 @@
             </div>
             <div>
               <div class="info-title">Paiement</div>
-              <div class="muted">Chèques ou espèces</div>
+              <div class="muted">Chèques, espèces, virement bancaire, PayPal</div>
             </div>
           </div>
           <div class="info-item reveal" data-delay="400">
